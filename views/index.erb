@@ -7,7 +7,28 @@
     <link rel="stylesheet" href="/assets/css/count.css">
   </head>
   <body>
-    <h1><%= @number %></h1>
+    <h1 style="
+      <% if @number==0 %>
+        color: #edda15;
+        border-color: #d8d8d;
+      <% elsif @number%15==0 %>
+        color: #2a6d39;
+        border-color: #f8b516;
+      <% elsif @number%5==0 %>
+        color: #ec6c1f;
+      <% elsif @number%3==0 %>
+        color: #d01026;
+        border-color: #f8b516;
+      <% else %>
+        color: #edda15;
+      <% end %>
+      <% n = @number.abs.to_s.length %>
+      <% 1.upto(n) do |num| %>
+        <% if (@number/10**(num-1)).to_i-(@number/10**num).to_i*10==3 %>
+          border-color: #f8b516;
+        <% end %>
+      <% end %>
+    "><%= @number %></h1>
     <form action="/plus" method="post">
       <input type="submit" value="+">
     </form>
