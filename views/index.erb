@@ -7,36 +7,41 @@
     <link rel="stylesheet" href="/assets/css/count.css">
   </head>
   <body>
+    <form action="/add_count" method="post">
+      <input type="submit" value="カウントを新規作成" class="add_count">
+    </form>
+    <% @count.each do |count| %>
     <h1 style="
-      <% if @number==0 %>
+      <% if count.number==0 %>
         color: #edda15;
         border-color: #d8d8d;
-      <% elsif @number%15==0 %>
+      <% elsif count.number%15==0 %>
         color: #2a6d39;
         border-color: #f8b516;
-      <% elsif @number%5==0 %>
+      <% elsif count.number%5==0 %>
         color: #ec6c1f;
-      <% elsif @number%3==0 %>
+      <% elsif count.number%3==0 %>
         color: #d01026;
         border-color: #f8b516;
       <% else %>
         color: #edda15;
       <% end %>
-      <% n = @number.abs.to_s.length %>
+      <% n = count.number.abs.to_s.length %>
       <% 1.upto(n) do |num| %>
-        <% if (@number/10**(num-1)).to_i-(@number/10**num).to_i*10==3 %>
+        <% if (count.number/10**(num-1)).to_i-(count.number/10**num).to_i*10==3 %>
           border-color: #f8b516;
         <% end %>
       <% end %>
-    "><%= @number %></h1>
-    <form action="/plus" method="post">
+    "><%= count.number %></h1>
+    <form action="/count/<%= count.id %>/plus" method="post">
       <input type="submit" value="+">
     </form>
-    <form action="/minus" method="post">
+    <form action="/count/<%= count.id %>/minus" method="post">
       <input type="submit" value="-">
     </form>
-    <form action="/clear" method="post">
+    <form action="/count/<%= count.id %>/clear" method="post">
       <input type="submit" value="clear">
     </form>
+    <% end %>
   </body>
 </html>

@@ -74,7 +74,8 @@ input[value="clear"]{
 }
 
 /* 新規カウンター作成ボタン */
-input[value="new"]{
+.add_count{
     color: #d8d8d8;
     background: #d01026;
+    margin: 30px;
 }

@@ -10,27 +10,32 @@ before do
 end
 
 get '/' do
-  @number = Count.first.number
+  @count = Count.all.order(:id)
   erb :index
 end
 
-post '/plus' do
-  count = Count.first
+post '/count/:id/plus' do
+  count = Count.find(params[:id])
   count.number = count.number + 1
   count.save
   redirect '/'
 end
 
-post '/minus' do
-  count = Count.first
+post '/count/:id/minus' do
+  count = Count.find(params[:id])
   count.number = count.number - 1
   count.save
   redirect '/'
 end
 
-post '/clear' do
-  count = Count.first
+post '/count/:id/clear' do
+  count = Count.find(params[:id])
   count.number = 0
   count.save
   redirect '/'
+end
+
+post '/add_count' do
+    Count.create(number: 0)
+    redirect '/'
 end
